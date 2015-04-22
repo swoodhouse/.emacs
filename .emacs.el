@@ -1,5 +1,8 @@
-;;(set-face-attribute 'default nil :font "Source Code Pro-11")
-;;(set-face-attribute 'default nil :font "Inconsolata-g-11")
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+(set-face-attribute 'default nil :font "Source Code Pro-11")
+
+(add-to-list 'load-path "~/.emacs.d/")
 
 (require 'package)
 ;(add-to-list 'package-archives 
@@ -8,31 +11,27 @@
 ;(add-to-list 'package-archives
 ;  '("melpa" . "http://melpa.milkbox.net/packages/") t)
 ;(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
-;(unless package-archive-contents    ;; Refresh the packages descriptions
-;  (package-refresh-contents))
-;(setq package-load-list '(all))     ;; List of packages to load
+(package-initialize)
+(setq package-load-list '(all))
+(unless package-archive-contents
+  (package-refresh-contents))
+
 ;(unless (package-installed-p 'org)  ;; Make sure the Org package is
 ;  (package-install 'org))           ;; installed, install it if not
-;(when (not package-archive-contents) (package-refresh-contents))
-(package-initialize)                ;; Initialize & Install Package
+;(unless (package-installed-p 'fsharp-mode)
+;  (package-install 'fsharp-mode))
 
+(load-theme 'solarized-dark t)
 
-
-(add-to-list 'load-path "~/.emacs.d/")
 (require 'auto-complete-config)
 (ac-config-default)
 
-(unless (package-installed-p 'fsharp-mode)
-  (package-install 'fsharp-mode))
 (require 'fsharp-mode)
 (add-hook 'fsharp-mode-hook
  (lambda ()
    (define-key fsharp-mode-map (kbd "M-RET") 'fsharp-eval-region)
    (define-key fsharp-mode-map (kbd "C-SPC") 'fsharp-ac/complete-at-point)))
 
-(load-theme 'solarized-dark t)
-(tool-bar-mode -1)
-(menu-bar-mode -1)
 
 ; make it so that M-RET will execute current line if there is no region selected
 ; get undo/redo working nicely
@@ -40,6 +39,10 @@
 (define-key global-map [(control ?v)]  'yank)
 (define-key global-map [(control ?s)]  'save-buffer)
 (define-key global-map [(control ?f)]  'isearch-forward)
+
+(setq org-support-shift-select t)
+(setq ess-ask-for-ess-directory nil)
+
 
 ;; acejump
 
@@ -179,18 +182,9 @@ Knows about CUA rectangle highlighting in addition to standard undo."
  )
 
 
-
-;; emacs --demon
-;; emacsclient
-;; ess for R
-;; autocomplete
 ;; latex-mode
 ;; tex-site
-;; ess-site
-;; org mode
 ;; dired+
 ;; git.elc
-;; linum
 ;; csv mode, vlf mode
-;; setting autocomplete
 ;; latex presentations via org mode
