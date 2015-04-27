@@ -1,7 +1,6 @@
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (set-face-attribute 'default nil :font "Source Code Pro-11")
-
 (add-to-list 'load-path "~/.emacs.d/")
 
 (require 'package)
@@ -53,8 +52,6 @@
   t)
 
 (define-key global-map (kbd "C-a") 'ace-jump-mode)
-;(define-key global-map (kbd "C-m") 'ace-jump-char-mode)
-(define-key global-map (kbd "C-l") 'ace-jump-line-mode)
 
 ;;; Enhanced undo - restore rectangle selections
 
@@ -182,9 +179,9 @@ Knows about CUA rectangle highlighting in addition to standard undo."
  )
 
 
+
 ;; latex-mode
 ;; tex-site
-;; dired+
 ;; git.elc
 ;; csv mode, vlf mode
 ;; latex presentations via org mode
