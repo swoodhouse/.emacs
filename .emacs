@@ -1,41 +1,54 @@
+(package-initialize)
+(require 'package)
+(require 'auto-complete)
+(require 'auto-complete-config)
+(require 'fsharp-mode)
+(require 'ess-site)
+(require 'org)
+(ac-config-default)
+
+(setq tab-always-indent 'complete)
+(add-to-list 'completion-styles 'initials t)
+(add-to-list 'package-archives
+   '("melpa" . "http://melpa.milkbox.net/packages/") t)
+;; (setq package-load-list '(all))
+;;  (unless package-archive-contents
+;;    (package-refresh-contents))
+
+(setq inhibit-splash-screen t)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (set-face-attribute 'default nil :font "Source Code Pro-11")
 (add-to-list 'load-path "~/.emacs.d/")
+(add-to-list 'ac-dictionary-directories "~/.emacs.d//ac-dict")
 
-(require 'package)
-;(add-to-list 'package-archives 
-;    '("marmalade" .
-;      "http://marmalade-repo.org/packages/"))
-;(add-to-list 'package-archives
-;  '("melpa" . "http://melpa.milkbox.net/packages/") t)
-;(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
-(package-initialize)
-(setq package-load-list '(all))
-(unless package-archive-contents
-  (package-refresh-contents))
+;(custom-set-variables
+; custom-set-variables was added by Custom.
+; If you edit it by hand, you could mess it up, so be careful.
+; Your init file should contain only one such instance.
+; If there is more than one, they won't work right.
+; '(ac-auto-show-menu 0.1)
+; '(ac-auto-start 1)
+; '(ac-use-comphist nil)
+; '(ess-use-R-completion t)
+; '(ess-use-auto-complete t)
+; '(inhibit-startup-screen t))
 
-;(unless (package-installed-p 'org)  ;; Make sure the Org package is
-;  (package-install 'org))           ;; installed, install it if not
-;(unless (package-installed-p 'fsharp-mode)
-;  (package-install 'fsharp-mode))
+(load-theme 'sanityinc-solarized-dark t)
 
-(load-theme 'solarized-dark t)
+(global-auto-complete-mode t)
+;(ac-flyspell-workaround)
 
-(require 'auto-complete-config)
-(ac-config-default)
-
-(require 'fsharp-mode)
 (add-hook 'fsharp-mode-hook
  (lambda ()
    (define-key fsharp-mode-map (kbd "M-RET") 'fsharp-eval-region)
    (define-key fsharp-mode-map (kbd "C-SPC") 'fsharp-ac/complete-at-point)))
 
 
-; make it so that M-RET will execute current line if there is no region selected
-; get undo/redo working nicely
+;; ; make it so that M-RET will execute current line if there is no region selected
+;; ; get undo/redo working nicely
 
-(define-key global-map [(control ?v)]  'yank)
+(define-key global-map [(control ?v)]  'yank)  ; M-y cycles the kill ring, giving you multiple clipboards
 (define-key global-map [(control ?s)]  'save-buffer)
 (define-key global-map [(control ?f)]  'isearch-forward)
 
@@ -43,7 +56,7 @@
 (setq ess-ask-for-ess-directory nil)
 
 
-;; acejump
+;; ;; acejump
 
 (autoload
   'ace-jump-mode
@@ -53,7 +66,7 @@
 
 (define-key global-map (kbd "C-a") 'ace-jump-mode)
 
-;;; Enhanced undo - restore rectangle selections
+;; ;;; Enhanced undo - restore rectangle selections
 
 (defvar CUA-rectangle nil
   "If non-nil, restrict current region to this rectangle.
@@ -180,8 +193,8 @@ Knows about CUA rectangle highlighting in addition to standard undo."
 
 
 
-;; latex-mode
-;; tex-site
-;; git.elc
-;; csv mode, vlf mode
-;; latex presentations via org mode
+;; ;; latex-mode
+;; ;; tex-site
+;; ;; git.elc
+;; ;; csv mode, vlf mode
+;; ;; latex presentations via org mode
