@@ -1,3 +1,3 @@
 # emacs
 
-My .emacs.el.
+My .emacs
