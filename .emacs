@@ -1,5 +1,9 @@
 (package-initialize)
+(setq load-prefer-newer t)
+(require 'auto-compile)
+(auto-compile-on-load-mode 1)
 (require 'package)
+(require 'ace-jump-mode)
 (require 'auto-complete)
 (require 'auto-complete-config)
 (require 'fsharp-mode)
@@ -7,13 +11,13 @@
 (require 'org)
 (ac-config-default)
 
-(setq tab-always-indent 'complete)
 (add-to-list 'completion-styles 'initials t)
 (add-to-list 'package-archives
    '("melpa" . "http://melpa.milkbox.net/packages/") t)
-;; (setq package-load-list '(all))
-;;  (unless package-archive-contents
-;;    (package-refresh-contents))
+
+(setq package-load-list '(all))
+  (unless package-archive-contents
+    (package-refresh-contents))
 
 (setq inhibit-splash-screen t)
 (tool-bar-mode -1)
@@ -21,7 +25,25 @@
 (set-face-attribute 'default nil :font "Source Code Pro-11")
 (add-to-list 'load-path "~/.emacs.d/")
 (add-to-list 'ac-dictionary-directories "~/.emacs.d//ac-dict")
+(load-theme 'sanityinc-solarized-dark t)
 
+(setq org-support-shift-select t)
+(setq ess-ask-for-ess-directory nil)
+(setq tab-always-indent 'complete)
+(global-auto-complete-mode t)
+
+(define-key global-map [(control ?v)]  'yank)  ; M-y cycles the kill ring, giving you multiple clipboards
+(define-key global-map [(control ?s)]  'save-buffer)
+(define-key global-map [(control ?f)]  'isearch-forward)
+(define-key global-map (kbd "C-a") 'ace-jump-mode)
+
+(add-hook 'fsharp-mode-hook
+ (lambda ()
+   (define-key fsharp-mode-map (kbd "M-RET") 'fsharp-eval-region)
+   (define-key fsharp-mode-map (kbd "C-SPC") 'fsharp-ac/complete-at-point)))
+
+
+;; needed?
 ;(custom-set-variables
 ; custom-set-variables was added by Custom.
 ; If you edit it by hand, you could mess it up, so be careful.
@@ -34,37 +56,13 @@
 ; '(ess-use-auto-complete t)
 ; '(inhibit-startup-screen t))
 
-(load-theme 'sanityinc-solarized-dark t)
-
-(global-auto-complete-mode t)
 ;(ac-flyspell-workaround)
 
-(add-hook 'fsharp-mode-hook
- (lambda ()
-   (define-key fsharp-mode-map (kbd "M-RET") 'fsharp-eval-region)
-   (define-key fsharp-mode-map (kbd "C-SPC") 'fsharp-ac/complete-at-point)))
 
 
 ;; ; make it so that M-RET will execute current line if there is no region selected
 ;; ; get undo/redo working nicely
 
-(define-key global-map [(control ?v)]  'yank)  ; M-y cycles the kill ring, giving you multiple clipboards
-(define-key global-map [(control ?s)]  'save-buffer)
-(define-key global-map [(control ?f)]  'isearch-forward)
-
-(setq org-support-shift-select t)
-(setq ess-ask-for-ess-directory nil)
-
-
-;; ;; acejump
-
-(autoload
-  'ace-jump-mode
-  "ace-jump-mode"
-  "Emacs quick move minor mode"
-  t)
-
-(define-key global-map (kbd "C-a") 'ace-jump-mode)
 
 ;; ;;; Enhanced undo - restore rectangle selections
 
@@ -138,7 +136,7 @@ Knows about CUA rectangle highlighting in addition to standard undo."
       (setq buffers (cdr buffers)))
     (/= cnt CUA-tidy-undo-counter)))
 
-(define-key global-map [(control ?z)]     'CUA-undo)
+(define-key global-map [(control ?z)] 'CUA-undo)
 
 ; C-x b change buffers
 ; C-x k kill buffer
@@ -178,20 +176,14 @@ Knows about CUA rectangle highlighting in addition to standard undo."
 ;; To jump to the definition of a symbol at point, use C-c C-d.
 ;; Completion will be invoked automatically on dot, as in Visual Studio. It may be invoked manually using completion-at-point, often bound to M-TAB and C-M-i.
 ;; To stop the intellisense process for any reason, use C-c C-q.
+
+;; needed?
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(tab-stop-list (quote (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80 84 88 92 96 100 104 108 112 116 120))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-
-
 
 ;; ;; latex-mode
 ;; ;; tex-site
