@@ -11,6 +11,11 @@
 (require 'org)
 (ac-config-default)
 
+(dolist (hook '(text-mode-hook))
+  (add-hook hook (lambda () (flyspell-mode 1))))
+(dolist (hook '(tex-mode-hook))
+  (add-hook hook (lambda () (flyspell-mode 1))))
+
 (add-to-list 'completion-styles 'initials t)
 (add-to-list 'package-archives
    '("melpa" . "http://melpa.milkbox.net/packages/") t)
@@ -22,7 +27,7 @@
 (setq inhibit-splash-screen t)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
-(set-face-attribute 'default nil :font "Source Code Pro-11")
+(setq default-frame-alist '((font . "Source Code Pro-11")))
 (add-to-list 'load-path "~/.emacs.d/")
 (add-to-list 'ac-dictionary-directories "~/.emacs.d//ac-dict")
 (load-theme 'sanityinc-solarized-dark t)
@@ -31,6 +36,9 @@
 (setq ess-ask-for-ess-directory nil)
 (setq tab-always-indent 'complete)
 (global-auto-complete-mode t)
+
+(setq show-paren-delay 0)
+(show-paren-mode t)
 
 (define-key global-map [(control ?v)]  'yank)  ; M-y cycles the kill ring, giving you multiple clipboards
 (define-key global-map [(control ?s)]  'save-buffer)
@@ -41,28 +49,6 @@
  (lambda ()
    (define-key fsharp-mode-map (kbd "M-RET") 'fsharp-eval-region)
    (define-key fsharp-mode-map (kbd "C-SPC") 'fsharp-ac/complete-at-point)))
-
-
-;; needed?
-;(custom-set-variables
-; custom-set-variables was added by Custom.
-; If you edit it by hand, you could mess it up, so be careful.
-; Your init file should contain only one such instance.
-; If there is more than one, they won't work right.
-; '(ac-auto-show-menu 0.1)
-; '(ac-auto-start 1)
-; '(ac-use-comphist nil)
-; '(ess-use-R-completion t)
-; '(ess-use-auto-complete t)
-; '(inhibit-startup-screen t))
-
-;(ac-flyspell-workaround)
-
-
-
-;; ; make it so that M-RET will execute current line if there is no region selected
-;; ; get undo/redo working nicely
-
 
 ;; ;;; Enhanced undo - restore rectangle selections
 
