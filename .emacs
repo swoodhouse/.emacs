@@ -1,3 +1,5 @@
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
+(blink-cursor-mode 0)
 (package-initialize)
 (setq load-prefer-newer t)
 (require 'auto-compile)
@@ -28,22 +30,20 @@
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (setq default-frame-alist '((font . "Source Code Pro-11")))
-(add-to-list 'load-path "~/.emacs.d/")
-(add-to-list 'ac-dictionary-directories "~/.emacs.d//ac-dict")
+(add-to-list 'ac-dictionary-directories "~/.emacs.d//lisp/ac-dict")
 (load-theme 'sanityinc-solarized-dark t)
 
 (setq org-support-shift-select t)
 (setq ess-ask-for-ess-directory nil)
 (setq tab-always-indent 'complete)
 (global-auto-complete-mode t)
-
 (setq show-paren-delay 0)
 (show-paren-mode t)
 
 (define-key global-map [(control ?v)]  'yank)  ; M-y cycles the kill ring, giving you multiple clipboards
 (define-key global-map [(control ?s)]  'save-buffer)
 (define-key global-map [(control ?f)]  'isearch-forward)
-(define-key global-map (kbd "C-a") 'ace-jump-mode)
+(define-key global-map (kbd "<XF86WakeUp>") 'ace-jump-char-mode)
 
 (add-hook 'fsharp-mode-hook
  (lambda ()
@@ -123,45 +123,7 @@ Knows about CUA rectangle highlighting in addition to standard undo."
     (/= cnt CUA-tidy-undo-counter)))
 
 (define-key global-map [(control ?z)] 'CUA-undo)
-
-; C-x b change buffers
-; C-x k kill buffer
-; M-x kill-some-buffers
-
-;; C-c C-r: Evaluate region
-;; C-c C-f: Load current buffer into toplevel
-;; C-c C-e: Evaluate current toplevel phrase
-;; C-M-x: Evaluate current toplevel phrase
-;; C-M-h: Mark current toplevel phrase
-;; C-c C-s: Show interactive buffer
-;; C-c C-c: Compile with fsc
-;; C-c x: Run the executable
-;; C-c C-a: Open alternate file (.fsi or .fs)
-;; C-c l: Shift region to left
-;; C-c r: Shift region to right
-;; C-c : Move cursor to the beginning of the block
-;; C-c C-p: Load a project for autocompletion and tooltips
-;; C-c C-d: Jump to definition of symbol at point
-;; C-c C-t: Request a tooltip for symbol at point
-;; C-c C-q: Quit current background compiler process
-;; M-n: Go to next error
-;; M-p: Go to previous error
-;; To interrupt the interactive mode, use C-c C-c. This is useful if your code does an infinite loop or a very long computation.
-
-;; If you want to shift the region by 2 spaces, use: M-2 C-c r
-
-;; In the interactive buffer, use M-RET to send the code without explicitly adding the ;; thing.
-
-;; Currently intellisense features can be offered for just one project at a time. To load a new F# project, use C-c C-p.
-
-;; While a project is loaded, the following features will be available:
-
-;; Type information for symbol at point will be displayed in the minibuffer
-;; Errors and warnings will be automatically highlighted, with mouseover text.
-;; To display a tooltip, move the cursor to a symbol and press C-c C-t (default).
-;; To jump to the definition of a symbol at point, use C-c C-d.
-;; Completion will be invoked automatically on dot, as in Visual Studio. It may be invoked manually using completion-at-point, often bound to M-TAB and C-M-i.
-;; To stop the intellisense process for any reason, use C-c C-q.
+(add-to-list 'ac-dictionary-directories "~/.emacs.d//lisp/ac-dict")
 
 ;; needed?
 (custom-set-variables
@@ -171,8 +133,4 @@ Knows about CUA rectangle highlighting in addition to standard undo."
  ;; If there is more than one, they won't work right.
  '(tab-stop-list (quote (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80 84 88 92 96 100 104 108 112 116 120))))
 
-;; ;; latex-mode
-;; ;; tex-site
-;; ;; git.elc
-;; ;; csv mode, vlf mode
-;; ;; latex presentations via org mode
+(put 'upcase-region 'disabled nil)
