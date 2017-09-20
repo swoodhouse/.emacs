@@ -171,3 +171,11 @@ Version 2017-01-08"
 
 ;M-q
 (global-set-key [C-M-q] 'xah-fill-or-unfill)
+
+(defun then_R_operator ()
+  "R - %>% operator or 'then' pipe operator"
+  (interactive)
+  (just-one-space 1)
+  (insert "%>%"))
+(define-key ess-mode-map (kbd "C-.") 'then_R_operator)
+(define-key inferior-ess-mode-map (kbd "C-.") 'then_R_operator)
