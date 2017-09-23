@@ -20,7 +20,7 @@
 
 (add-to-list 'completion-styles 'initials t)
 (add-to-list 'package-archives
-   '("melpa" . "http://melpa.milkbox.net/packages/") t)
+   '("melpa" . "http://melpa.org/packages/") t)
 
 (setq package-load-list '(all))
   (unless package-archive-contents
