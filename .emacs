@@ -147,8 +147,43 @@ Knows about CUA rectangle highlighting in addition to standard undo."
  ;; If there is more than one, they won't work right.
  )
 
+
+(defun xah-fill-or-unfill ()
+  "Reformat current paragraph or region to `fill-column', like `fill-paragraph' or unfill.
+When there is a text selection, act on the selection, else, act on a text block separated by blank lines.
+URL `http://ergoemacs.org/emacs/modernization_fill-paragraph.html'
+Version 2017-01-08"
+  (interactive)
+  ;; This command symbol has a property 'compact-p, the possible values are t and nil. This property is used to easily determine whether to compact or uncompact, when this command is called again
+  (let ( ($compact-p
+          (if (eq last-command this-command)
+              (get this-command 'compact-p)
+            (> (- (line-end-position) (line-beginning-position)) fill-column)))
+         (deactivate-mark nil)
+         ($blanks-regex "\n[ \t]*\n")
+         $p1 $p2
+         )
+    (if (use-region-p)
+        (progn (setq $p1 (region-beginning))
+               (setq $p2 (region-end)))
+      (save-excursion
+        (if (re-search-backward $blanks-regex nil "NOERROR")
+            (progn (re-search-forward $blanks-regex)
+                   (setq $p1 (point)))
+          (setq $p1 (point)))
+        (if (re-search-forward $blanks-regex nil "NOERROR")
+            (progn (re-search-backward $blanks-regex)
+                   (setq $p2 (point)))
+          (setq $p2 (point)))))
+    (if $compact-p
+        (fill-region $p1 $p2)
+      (let ((fill-column most-positive-fixnum ))
+        (fill-region $p1 $p2)))
+    (put this-command 'compact-p (not $compact-p))))
+
 ;M-q
 (global-set-key [C-M-q] 'xah-fill-or-unfill)
+(put 'downcase-region 'disabled nil)
 
 (defun then_R_operator ()
   "R - %>% operator or 'then' pipe operator"
@@ -157,7 +192,6 @@ Knows about CUA rectangle highlighting in addition to standard undo."
   (insert "%>%"))
 (define-key ess-mode-map (kbd "C-.") 'then_R_operator)
 (define-key inferior-ess-mode-map (kbd "C-.") 'then_R_operator)
-(put 'downcase-region 'disabled nil)
 
 (require 'ido)
 (ido-mode t)
