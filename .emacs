@@ -195,3 +195,5 @@ Version 2017-01-08"
 
 (require 'ido)
 (ido-mode t)
+
+(setq rust-format-on-save t)
