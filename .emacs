@@ -10,6 +10,8 @@
 (require 'auto-complete-config)
 (require 'fsharp-mode)
 (require 'ess-site)
+(require 'poly-R)
+(require 'poly-markdown)
 (require 'org)
 (ac-config-default)
 
@@ -20,7 +22,10 @@
 
 (add-to-list 'completion-styles 'initials t)
 (add-to-list 'package-archives
-   '("melpa" . "http://melpa.org/packages/") t)
+             '("melpa-stable" . "https://stable.melpa.org/packages/"))
+(add-to-list 'package-archives
+    '("melpa" . "http://melpa.org/packages/") t)
+
 
 (setq package-load-list '(all))
   (unless package-archive-contents
@@ -174,7 +179,7 @@ Knows about CUA rectangle highlighting in addition to standard undo."
  '(org-startup-truncated nil)
  '(package-selected-packages
    (quote
-    (rust-mode clojure-mode cider monokai-theme ## solarized-theme haskell-mode magit popup-complete fsharp-mode ess color-theme-sanityinc-solarized auto-compile ace-jump-mode)))
+    (poly-noweb poly-R poly-markdown polymode markdown-mode rust-mode clojure-mode cider monokai-theme ## solarized-theme haskell-mode magit popup-complete fsharp-mode ess color-theme-sanityinc-solarized auto-compile ace-jump-mode)))
  '(pos-tip-background-color "#073642")
  '(pos-tip-foreground-color "#93a1a1")
  '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#073642" 0.2))
@@ -239,4 +244,7 @@ Knows about CUA rectangle highlighting in addition to standard undo."
 
 (setq rust-format-on-save t)
 
-(autoload ‘markdown-mode “markdown-mode” “Major mode for editing Markdown files” t) (add-to-list ’auto-mode-alist’(“\.text\‘" . markdown-mode)) (add-to-list ’auto-mode-alist’(”\.markdown\‘" . markdown-mode)) (add-to-list ’auto-mode-alist’(“\.md\’” . markdown-mode))
+(autoload 'markdown-mode "markdown-mode" "Major mode for editing Markdown files" t)
+(add-to-list 'auto-mode-alist '("\.text\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\.markdown\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\.md\'" . markdown-mode))
