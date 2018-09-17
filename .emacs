@@ -1,9 +1,15 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
 (blink-cursor-mode 0)
+
 (package-initialize)
+(add-to-list 'package-archives
+             '("melpa-stable" . "https://stable.melpa.org/packages/"))
+(add-to-list 'package-archives
+	     '("melpa" . "http://melpa.org/packages/") t)
+
 (setq load-prefer-newer t)
-(require 'auto-compile)
-(auto-compile-on-load-mode 1)
+(require 'auto-compile) ; temp
+(auto-compile-on-load-mode 1) ; temp
 (require 'package)
 (require 'ace-jump-mode)
 (require 'auto-complete)
@@ -21,11 +27,6 @@
   (add-hook hook (lambda () (flyspell-mode 1))))
 
 (add-to-list 'completion-styles 'initials t)
-(add-to-list 'package-archives
-             '("melpa-stable" . "https://stable.melpa.org/packages/"))
-(add-to-list 'package-archives
-    '("melpa" . "http://melpa.org/packages/") t)
-
 
 (setq package-load-list '(all))
   (unless package-archive-contents
@@ -34,9 +35,11 @@
 (setq inhibit-splash-screen t)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
-(setq default-frame-alist '((font . "Source Code Pro-11")))
+;(setq default-frame-alist '((font . "Source Code Pro-11")))
+(setq default-frame-alist '((font . "Source Code Variable")))
 (add-to-list 'ac-dictionary-directories "~/.emacs.d//lisp/ac-dict")
-(load-theme 'sanityinc-solarized-dark t)
+;(load-theme 'sanityinc-solarized-dark t)
+(load-theme 'solarized-dark t)
 
 (setq org-support-shift-select t)
 (setq ess-ask-for-ess-directory nil)
