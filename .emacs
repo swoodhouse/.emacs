@@ -14,10 +14,10 @@
 (require 'ace-jump-mode)
 (require 'auto-complete)
 (require 'auto-complete-config)
-(require 'fsharp-mode)
-(require 'ess-site)
-(require 'poly-R)
-(require 'poly-markdown)
+;(require 'fsharp-mode)
+;(require 'ess-site)
+;(require 'poly-R)
+;(require 'poly-markdown)
 (require 'org)
 (ac-config-default)
 
@@ -35,8 +35,8 @@
 (setq inhibit-splash-screen t)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
-;(setq default-frame-alist '((font . "Source Code Pro-11")))
-(setq default-frame-alist '((font . "Source Code Variable")))
+(setq default-frame-alist '((font . "Source Code Pro-11")))
+;(setq default-frame-alist '((font . "Source Code Variable")))
 (add-to-list 'ac-dictionary-directories "~/.emacs.d//lisp/ac-dict")
 ;(load-theme 'sanityinc-solarized-dark t)
 (load-theme 'solarized-dark t)
@@ -48,10 +48,8 @@
 (setq show-paren-delay 0)
 (show-paren-mode t)
 
-(define-key global-map [(control ?v)]  'yank)  ; M-y cycles the kill ring, giving you multiple clipboards
-(define-key global-map [(control ?s)]  'save-buffer)
-(define-key global-map [(control ?f)]  'isearch-forward)
-(define-key global-map (kbd "<XF86WakeUp>") 'ace-jump-char-mode)
+;(define-key global-map (kbd "<XF86WakeUp>") 'ace-jump-char-mode)
+(define-key global-map (kbd "M-1") 'ace-jump-char-mode)
 
 (add-hook 'fsharp-mode-hook
  (lambda ()
@@ -233,14 +231,14 @@ Knows about CUA rectangle highlighting in addition to standard undo."
 ;M-q
 (global-set-key [C-M-q] 'xah-fill-or-unfill)
 
-(defun then_R_operator ()
-  "R - %>% operator or 'then' pipe operator"
-  (interactive)
-  (just-one-space 1)
-  (insert "%>%"))
-(define-key ess-mode-map (kbd "C-.") 'then_R_operator)
-(define-key inferior-ess-mode-map (kbd "C-.") 'then_R_operator)
-(put 'downcase-region 'disabled nil)
+;(defun then_R_operator ()
+;  "R - %>% operator or 'then' pipe operator"
+;  (interactive)
+;  (just-one-space 1)
+;  (insert "%>%"))
+;(define-key ess-mode-map (kbd "C-.") 'then_R_operator)
+;(define-key inferior-ess-mode-map (kbd "C-.") 'then_R_operator)
+;(put 'downcase-region 'disabled nil)
 
 (require 'ido)
 (ido-mode t)
@@ -251,3 +249,4 @@ Knows about CUA rectangle highlighting in addition to standard undo."
 (add-to-list 'auto-mode-alist '("\.text\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\.markdown\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\.md\'" . markdown-mode))
+
